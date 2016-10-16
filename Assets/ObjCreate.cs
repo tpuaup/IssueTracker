@@ -11,39 +11,39 @@ public class ObjCreate : MonoBehaviour {
 	// Use this for initialization
 	void Start () 
 	{
-		Vector3[] vertices = new Vector3[] {
-			new Vector3 (0, 0, 0),
-			new Vector3 (10, 0, 0),
-			new Vector3 (10, 10, 0),
-			new Vector3 (0, 10, 0),
-			new Vector3 (0, 0, 10),
-			new Vector3 (10, 0, 10),
-			new Vector3 (10, 10, 10),
-			new Vector3 (0, 10, 10),
-		};
-
-		int[] triangles = new int[] { 
-			0,3,1,1,3,2,
-			4,0,1,1,5,4,
-			1,2,5,5,2,6,
-			4,7,0,0,7,3,
-			4,5,7,7,5,6,
-			3,7,2,2,7,6
-		};
-
-		Vector2[] uvs = new Vector2[] 
-		{
-			new Vector2(0,0),
-			new Vector2(1,0),
-			new Vector2(1,1),
-			new Vector2(0,1),
-			new Vector2(1,0),
-			new Vector2(0,0),
-			new Vector2(0,1),
-			new Vector2(1,1)
-		};
+//		Vector3[] vertices = new Vector3[] {
+//			new Vector3 (0, 0, 0),
+//			new Vector3 (10, 0, 0),
+//			new Vector3 (10, 10, 0),
+//			new Vector3 (0, 10, 0),
+//			new Vector3 (0, 0, 10),
+//			new Vector3 (10, 0, 10),
+//			new Vector3 (10, 10, 10),
+//			new Vector3 (0, 10, 10),
+//		};
+//
+//		int[] triangles = new int[] { 
+//			0,3,1,1,3,2,
+//			4,0,1,1,5,4,
+//			1,2,5,5,2,6,
+//			4,7,0,0,7,3,
+//			4,5,7,7,5,6,
+//			3,7,2,2,7,6
+//		};
+//
+//		Vector2[] uvs = new Vector2[] 
+//		{
+//			new Vector2(0,0),
+//			new Vector2(1,0),
+//			new Vector2(1,1),
+//			new Vector2(0,1),
+//			new Vector2(1,0),
+//			new Vector2(0,0),
+//			new Vector2(0,1),
+//			new Vector2(1,1)
+//		};
 //		CreateMesh (vertices, triangles, uvs);
-		ReadObjFile(Application.dataPath+@"/cow-nonormals.obj");
+		ReadObjFile(Application.dataPath+@"/Toilet.obj");
 
 
 
@@ -84,76 +84,83 @@ public class ObjCreate : MonoBehaviour {
 	{
 		StreamReader reader = new StreamReader (filePath);
 		string aLine = string.Empty;
-		int vCount = 0;
-		int fCount = 0;
+
 		Mesh mesh = new Mesh ();
 		List<Vector3> vertices = new List<Vector3> ();
 		List<int> triangles = new List<int> ();
 		List<Mesh> meshList = new List<Mesh> ();
 		while ((aLine = reader.ReadLine ()) != null) 
 		{
-			if (aLine.Contains ("v ")) {
-				if (vCount == 0 && fCount == 0) {
-					// new Mesh and clear vertices
-					mesh = new Mesh ();
-					vertices.Clear ();
+			if (aLine.Contains ("#") || aLine == "")
+				continue;
+			string[] cpms = aLine.Trim ().Split (' ');
 
-				} else if (vCount == 0 && fCount != 0) {
-					mesh.triangles = triangles.ToArray ();
-					fCount = 0;
-					meshList.Add (mesh);
-					mesh = new Mesh ();
-				}
-				aLine = aLine.Substring (2);
-				float x = float.Parse (aLine.Substring (0, aLine.IndexOf (" ")));
-				aLine = aLine.Substring (aLine.IndexOf (" ")).TrimStart ();
-				float y = float.Parse (aLine.Substring (0, aLine.IndexOf (" ")));
-				aLine = aLine.Substring (aLine.IndexOf (" ")).TrimStart ();
-				float z = float.Parse (aLine.Substring (0));
-				vertices.Add (new Vector3 (x, y, z));
-				vCount++;
+			// vertices
+			if (cpms [0] == "v") {
+				vertices.Add (new Vector3 (float.Parse (cpms [1]), float.Parse (cpms [2]), float.Parse (cpms [3])));
+			}
 
-			} else if (aLine.Contains ("f ")) {
-				if (vCount != 0 && fCount == 0) {
-					triangles.Clear ();
-					mesh.SetVertices (vertices);
-					vCount = 0;
-				}
-				aLine = aLine.Substring (2);
-				int p0 = int.Parse (aLine.Substring (0, aLine.IndexOf (" ")));
-				aLine = aLine.Substring (aLine.IndexOf (" ")).TrimStart ();
-				int p1 = int.Parse (aLine.Substring (0, aLine.IndexOf (" ")));
-				aLine = aLine.Substring (aLine.IndexOf (" ")).TrimStart ();
-				int p2 = int.Parse (aLine.Substring (0));
-
-				triangles.Add (p0-1);
-				triangles.Add (p1-1);
-				triangles.Add (p2-1);
-				fCount++;
-			} 
-			else if (aLine == "" && fCount!=0) 
+			// faces
+			else if (cpms [0] == "f") 
 			{
-				mesh.triangles = triangles.ToArray ();
-				fCount = 0;
-				meshList.Add (mesh);
+				if (cpms [1].Contains ("/"))
+					continue;
+				else 
+				{
+					for (int i = 1; i <= 3; i++)
+						triangles.Add (int.Parse (cpms [i]) - 1);
+				}
+
+			}
+
+			// texture map
+			else if (cpms [0] == "vt") 
+			{
+
+			}
+
+			// normal map
+			else if (cpms [0] == "vn") 
+			{
+
+			}
+
+			// group or object
+			else if (cpms [0] == "g" || cpms[0]=="o") 
+			{
+				if (vertices.Count == 0)
+					mesh.name = cpms [1];
+				
+				else 
+				{
+					// 將資料加入mesh
+					mesh.SetVertices (vertices);
+					mesh.triangles = triangles.ToArray ();
+					meshList.Add (mesh);
+
+					//reset
+					vertices.Clear();
+					triangles.Clear ();
+					mesh = new Mesh ();
+					mesh.name = cpms [1];
+				}
 			}
 		}
+
+		// 將資料加入mesh
+		mesh.SetVertices (vertices);
 		mesh.triangles = triangles.ToArray ();
-		fCount = 0;
 		meshList.Add (mesh);
 
 
-		// 產生mesh
+		// 產生game obj
 		foreach (Mesh m in meshList) {
 
 			GameObject obj = new GameObject ("mesh");
 			MeshFilter mf = obj.AddComponent<MeshFilter> ();
 			mf.mesh = m;
 			MeshRenderer renderer = obj.AddComponent<MeshRenderer> ();
-			//renderer.material.shader = Shader.Find ("Particles/Additive");
-			//			renderer.material.shader = Shader.Find("Standard");
-			//			renderer.material.color = Color.white;
-			//			renderer.material.name = "defaultMat";
+
 			renderer.material = material;
 			mesh.Optimize ();
 			mesh.RecalculateNormals ();
