@@ -48,6 +48,9 @@
      <Compile Include="Assets\OBJImport\OBJLoader.cs" />
      <Compile Include="Assets\OBJImport\TextureLoader.cs" />
      <Compile Include="Assets\ObjCreate.cs" />
+     <Compile Include="Assets\ObjFile.cs" />
+     <Compile Include="Assets\ReadTerrainData.cs" />
+     <None Include="Assets\111.txt" />
      <None Include="Assets\OBJImport\readme.txt" />
      <None Include="Assets\The_Texture_Lab\TL_Prototype_Textures_Pack\Documentation.txt" />
  <Reference Include="UnityEngine.UI">

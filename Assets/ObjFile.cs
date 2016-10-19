@@ -55,7 +55,7 @@ public class ObjFile {
         List<Vector3> normals = new List<Vector3>();
         int faceCount = 0;
 
-		while ((aLine = reader.ReadLine ()) != null) 
+		while ((aLine = reader.ReadLine ()) != null && aLine!="") 
 		{
 			if (aLine.Contains ("#") || aLine == "")
 				continue;
@@ -144,7 +144,7 @@ public class ObjFile {
             }
 
 			// group or object
-			else if (cpms [0] == "g" || cpms[0]=="o") 
+			else if ( cpms[0]=="o") 
 			{
 				if (vertices.Count == 0 || triangles.Count==0)
 					mesh.name = cpms [1];
@@ -164,6 +164,11 @@ public class ObjFile {
 					mesh.name = cpms [1];
 				}
 			}
+
+            else if(cpms[0] == "g")
+            {
+
+            }
 		}
 
 		// 將資料加入mesh
