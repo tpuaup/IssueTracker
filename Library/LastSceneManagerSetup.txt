@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/_Scene/scene.unity
+- path: Assets/_Scene/baseball.unity
   isLoaded: 1
   isActive: 1
