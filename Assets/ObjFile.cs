@@ -15,7 +15,7 @@ public class ObjFile {
 
 	}
 
-
+    private List<Vector3> Vertices;
 
 	private void CreateMesh(Vector3[] vertices, int[] triangles, Vector2[] uvs)
 	{
@@ -74,42 +74,6 @@ public class ObjFile {
                     // 非三角面
                     if (cpms.Length > 4)
                     {
-                        // 取得所有面的點
-                        //List<TSG3D.Point> faceVertices = new List<TSG3D.Point>();
-                        //Vector3 tempVec = new Vector3();
-                        //for (int i=1; i<cpms.Length;i++)
-                        //{
-                        //    string[] faceIndices = cpms[i].ToString().Split('/');
-                        //    TSG3D.Point p = new TSG3D.Point(vertices[int.Parse(faceIndices[0]) - 1].x, vertices[int.Parse(faceIndices[0]) - 1].y, vertices[int.Parse(faceIndices[0]) - 1].z);
-                        //    faceVertices.Add(p);
-                        //    tempVec = normals[int.Parse(faceIndices[2]) - 1];
-                        //}
-
-
-                        //// 轉換成平面
-                        //TSG3D.Vector normalVec = new TSG3D.Vector(tempVec.x, tempVec.y, tempVec.z).GetNormal();
-                        //TSG3D.Vector x = new TSG3D.Vector(faceVertices[1]-faceVertices[0]).GetNormal();
-                        //TSG3D.Vector y = normalVec.Cross(x);
-                        //TSG3D.Matrix pMatrix = TSG3D.MatrixFactory.ToCoordinateSystem(new TSG3D.CoordinateSystem(new TSG3D.Point(faceVertices[0]), x, y));
-
-                        //Tri.Geometry.InputGeometry input = new Tri.Geometry.InputGeometry();
-                        //foreach(Vector3 pu in vertices)
-                        //{
-                        //    TSG3D.Point p = new TSG3D.Point(pu.x, pu.y, pu.z);
-                        //    TSG3D.Point localP = pMatrix.Transform(p);
-                        //    input.AddPoint(Math.Round(localP.X, 3), Math.Round(localP.Y, 3));
-                        //}
-
-                        //// make triangles
-                        //Tri.Mesh triMesh = new Tri.Mesh();
-                        //triMesh.Triangulate(input);
-
-                        //ICollection<Tri.Data.Triangle> triTriangles = triMesh.Triangles;
-                        //foreach(Tri.Data.Triangle triTriangle in triTriangles)
-                        //{
-
-                        //}
-
 
                     }
 

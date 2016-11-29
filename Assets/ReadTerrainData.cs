@@ -16,15 +16,13 @@ public class ReadTerrainData : MonoBehaviour {
         int xRes = terrain.terrainData.heightmapWidth;
         int yRes = terrain.terrainData.heightmapHeight;
 
-        // get heights - gets the heightmap points of the terrain. Store those values in a float array
-        float[,] heights = terrain.terrainData.GetHeights(0, 0, xRes, yRes);
+
 
         // read xyz
         List<Vector3> points = ReadAllLinesToList(Application.dataPath + @"/111.txt");
 
-        int resolution = int.Parse(Mathf.Sqrt(points.Count).ToString());
-        TerrainData terrainData = new TerrainData();
-
+        // get heights - gets the heightmap points of the terrain. Store those values in a float array
+        float[,] heights = terrain.terrainData.GetHeights(0, 0, xRes, yRes);
 
         // get extreme values
         float minX = 0f, maxX = 0f, minY = 0f, maxY = 0f, minZ = 0f, maxZ = 0f;
@@ -93,6 +91,7 @@ public class ReadTerrainData : MonoBehaviour {
         }
 
         terrain.terrainData.SetHeights(0, 0, heights);
+
     }
 
     public List<Vector3> ReadAllLinesToList(string path)
