@@ -51,6 +51,8 @@
      <Compile Include="Assets\Scripts\ObjFile.cs" />
      <Compile Include="Assets\Scripts\Pitch.cs" />
      <Compile Include="Assets\Scripts\ReadTerrainData.cs" />
+     <Compile Include="Assets\Scripts\RotateTheArm.cs" />
+     <Compile Include="Assets\Scripts\VanishTheBall.cs" />
      <None Include="Assets\111.txt" />
      <None Include="Assets\OBJImport\readme.txt" />
      <None Include="Assets\The_Texture_Lab\TL_Prototype_Textures_Pack\Documentation.txt" />

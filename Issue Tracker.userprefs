@@ -1,8 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Pitch.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/RotateTheArm.cs">
     <Files>
-      <File FileName="Assets/Scripts/Pitch.cs" Line="17" Column="47" />
+      <File FileName="Assets/Scripts/VanishTheBall.cs" Line="23" Column="3" />
+      <File FileName="Assets/Scripts/Pitch.cs" Line="17" Column="42" />
+      <File FileName="Assets/Scripts/RotateTheArm.cs" Line="18" Column="38" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
